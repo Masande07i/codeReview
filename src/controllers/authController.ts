@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as userService from "../service/userService"
+import * as userService from "../service/userService";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
