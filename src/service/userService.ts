@@ -48,3 +48,14 @@ export const updateUserById = async (
 
     return rows[0] || null;
 };
+
+export const deleteUserById = async (
+    id: number
+): Promise<User | null> => {
+    const { rows } = await query(
+        "DELETE FROM users WHERE id = $1 RETURNING id, email",
+        [id]
+    );
+
+    return rows[0] || null;
+};
