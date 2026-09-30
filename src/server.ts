@@ -4,6 +4,7 @@ import { testDbConnection } from "./config/database";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import projectRoutes from "./routes/projectRoutes";
+import projectMemberRoutes from "./routes/projectMemberRoutes";
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ const startServer = async () => {
     app.use('/api/auth', authRoutes )
     app.use("/api", userRoutes);
     app.use("/api", projectRoutes);
+    app.use("/api", projectMemberRoutes);
    
 
     app.listen(PORT, () => {
