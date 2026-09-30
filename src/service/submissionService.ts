@@ -29,3 +29,14 @@ export const getSubmissionsByProject = async (
 
     return rows;
 };
+
+export const getSubmissionById = async (
+    id: number
+): Promise<Submission | null> => {
+    const { rows } = await query(
+        "SELECT * FROM submissions WHERE id = $1",
+        [id]
+    );
+
+    return rows[0] || null;
+};

@@ -49,3 +49,24 @@ export const getSubmissionsByProject = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const getSubmissionById = async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id as string, 10);
+
+        const submission = await submissionService.getSubmissionById(id);
+
+        if (!submission) {
+            return res.status(404).json({
+                message: "Submission not found"
+            });
+        }
+
+        return res.status(200).json(submission);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error retrieving submission"
+        });
+    }
+};
