@@ -31,3 +31,28 @@ export const addProjectMember = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const removeProjectMember = async (req: Request, res: Response) => {
+    try {
+        const project_id = parseInt(req.params.id as string, 10);
+        const user_id = parseInt(req.params.userId as string, 10);
+
+        const project = await projectMemberService.removeProjectMember(
+            project_id,
+            user_id
+        );
+
+        if (!project) {
+            return res.status(404).json({
+                message: "Project not found"
+            });
+        }
+
+        return res.status(200).json(project);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error removing user from project"
+        });
+    }
+};
