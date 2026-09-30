@@ -32,3 +32,20 @@ export const createSubmission = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const getSubmissionsByProject = async (req: Request, res: Response) => {
+    try {
+        const project_id = parseInt(req.params.id as string, 10);
+
+        const submissions = await submissionService.getSubmissionsByProject(
+            project_id
+        );
+
+        return res.status(200).json(submissions);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error retrieving submissions"
+        });
+    }
+};
