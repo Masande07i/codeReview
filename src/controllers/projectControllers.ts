@@ -65,3 +65,35 @@ export const getProjectById = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const updateProjectById = async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id as string, 10);
+        const { name, description } = req.body;
+
+        if (!name) {
+            return res.status(400).json({
+                message: "Project name is required"
+            });
+        }
+
+        const project = await projectService.updateProjectById(
+            id,
+            name,
+            description
+        );
+
+        if (!project) {
+            return res.status(404).json({
+                message: "Project not found"
+            });
+        }
+
+        return res.status(200).json(project);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error updating project"
+        });
+    }
+};

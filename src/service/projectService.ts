@@ -34,3 +34,20 @@ export const getProjectById = async (
 
     return rows[0] || null;
 };
+
+export const updateProjectById = async (
+    id: number,
+    name: string,
+    description: string
+): Promise<Project | null> => {
+    const { rows } = await query(
+        `UPDATE projects
+         SET name = $1,
+             description = $2
+         WHERE id = $3
+         RETURNING *`,
+        [name, description, id]
+    );
+
+    return rows[0] || null;
+};
