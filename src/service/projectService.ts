@@ -51,3 +51,16 @@ export const updateProjectById = async (
 
     return rows[0] || null;
 };
+
+export const deleteProjectById = async (
+    id: number
+): Promise<Project | null> => {
+    const { rows } = await query(
+        `DELETE FROM projects
+         WHERE id = $1
+         RETURNING *`,
+        [id]
+    );
+
+    return rows[0] || null;
+};
