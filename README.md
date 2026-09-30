@@ -55,3 +55,8 @@ CREATE TABLE IF NOT EXISTS project_members (
 SELECT * FROM projects;
 
 SELECT * FROM users;
+
+DROP TABLE IF EXISTS project_members;
+
+ALTER TABLE projects
+ADD COLUMN member_ids INT[] DEFAULT '{}';

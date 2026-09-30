@@ -1,17 +1,17 @@
 import { query } from "../config/database";
-import { ProjectMember } from "../types/projectMember.types"
+import { Project } from "../types/project.types";
 
 export const addProjectMember = async (
     project_id: number,
-    user_id: number,
-    role: "Submitter" | "Reviewer"
-): Promise<ProjectMember> => {
+    user_id: number
+): Promise<Project | null> => {
     const { rows } = await query(
-        `INSERT INTO project_members (project_id, user_id, role)
-         VALUES ($1, $2, $3)
+        `UPDATE projects
+         SET member_ids = array_append(member_ids, $1)
+         WHERE id = $2
          RETURNING *`,
-        [project_id, user_id, role]
+        [user_id, project_id]
     );
 
-    return rows[0];
+    return rows[0] || null;
 };
