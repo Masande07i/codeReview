@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import projectRoutes from "./routes/projectRoutes";
 import projectMemberRoutes from "./routes/projectMemberRoutes";
+import submissionRoutes from "./routes/submissionRoutes";
 
 
 dotenv.config();
@@ -19,6 +20,7 @@ const startServer = async () => {
     app.use("/api", userRoutes);
     app.use("/api", projectRoutes);
     app.use("/api", projectMemberRoutes);
+    app.use("/api", submissionRoutes);
    
 
     app.listen(PORT, () => {

@@ -60,3 +60,13 @@ DROP TABLE IF EXISTS project_members;
 
 ALTER TABLE projects
 ADD COLUMN member_ids INT[] DEFAULT '{}';
+
+CREATE TABLE IF NOT EXISTS submissions (
+    id SERIAL PRIMARY KEY,
+    project_id INT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(100) NOT NULL,
+    code TEXT NOT NULL,
+    status VARCHAR(30) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
