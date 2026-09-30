@@ -15,3 +15,22 @@ export const createProject = async (
 
     return rows[0];
 };
+
+export const getAllProjects = async (): Promise<Project[]> => {
+    const { rows } = await query(
+        "SELECT * FROM projects ORDER BY created_at DESC"
+    );
+
+    return rows;
+};
+
+export const getProjectById = async (
+    id: number
+): Promise<Project | null> => {
+    const { rows } = await query(
+        "SELECT * FROM projects WHERE id = $1",
+        [id]
+    );
+
+    return rows[0] || null;
+};
