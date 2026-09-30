@@ -19,7 +19,9 @@ export const createUser = async (
     const password_hash = await bcrypt.hash(password, salt);
 
     const { rows } = await query(
-        "INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email",
+        `INSERT INTO users (email, password_hash, role)
+         VALUES ($1, $2, 'Submitter')
+         RETURNING id, email, role`,
         [email, password_hash]
     );
 
@@ -30,7 +32,9 @@ export const findUserById = async (
     id: number
 ): Promise<User | null> => {
     const { rows } = await query(
-        "SELECT id, email FROM users WHERE id = $1",
+        `SELECT id, email, name, display_picture, role
+         FROM users
+         WHERE id = $1`,
         [id]
     );
 
@@ -39,11 +43,18 @@ export const findUserById = async (
 
 export const updateUserById = async (
     id: number,
-    email: string
+    email: string,
+    name: string,
+    display_picture: string
 ): Promise<User | null> => {
     const { rows } = await query(
-        "UPDATE users SET email = $1 WHERE id = $2 RETURNING id, email",
-        [email, id]
+        `UPDATE users
+         SET email = $1,
+             name = $2,
+             display_picture = $3
+         WHERE id = $4
+         RETURNING id, email, name, display_picture, role`,
+        [email, name, display_picture, id]
     );
 
     return rows[0] || null;

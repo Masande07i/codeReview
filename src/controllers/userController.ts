@@ -21,22 +21,33 @@ export const getUserById = async (req: Request, res: Response) => {
 export const updateUserById = async (req: Request, res: Response) => {
     try {
         const id = parseInt(req.params.id as string, 10);
-        const { email } = req.body;
+        const { email, name, display_picture } = req.body;
 
         if (!email) {
-            return res.status(400).json({ message: "Email is required" });
+            return res.status(400).json({
+                message: "Email is required"
+            });
         }
 
-        const user = await userService.updateUserById(id, email);
+        const user = await userService.updateUserById(
+            id,
+            email,
+            name,
+            display_picture
+        );
 
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                message: "User not found"
+            });
         }
 
         return res.status(200).json(user);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Error updating user" });
+        res.status(500).json({
+            message: "Error updating user"
+        });
     }
 };
 
@@ -47,7 +58,9 @@ export const deleteUserById = async (req: Request, res: Response) => {
         const user = await userService.deleteUserById(id);
 
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                message: "User not found"
+            });
         }
 
         return res.status(200).json({
@@ -56,6 +69,8 @@ export const deleteUserById = async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Error deleting user" });
+        res.status(500).json({
+            message: "Error deleting user"
+        });
     }
 };
