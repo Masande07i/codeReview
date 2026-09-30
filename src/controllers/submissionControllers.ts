@@ -70,3 +70,47 @@ export const getSubmissionById = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const updateSubmissionStatus = async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id as string, 10);
+        const { status } = req.body;
+
+        if (!status) {
+            return res.status(400).json({
+                message: "Status is required"
+            });
+        }
+
+        const validStatuses = [
+            "pending",
+            "in_review",
+            "approved",
+            "changes_requested"
+        ];
+
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({
+                message: "Invalid status"
+            });
+        }
+
+        const submission = await submissionService.updateSubmissionStatus(
+            id,
+            status
+        );
+
+        if (!submission) {
+            return res.status(404).json({
+                message: "Submission not found"
+            });
+        }
+
+        return res.status(200).json(submission);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error updating submission status"
+        });
+    }
+};

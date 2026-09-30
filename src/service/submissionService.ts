@@ -40,3 +40,18 @@ export const getSubmissionById = async (
 
     return rows[0] || null;
 };
+
+export const updateSubmissionStatus = async (
+    id: number,
+    status: Submission["status"]
+): Promise<Submission | null> => {
+    const { rows } = await query(
+        `UPDATE submissions
+         SET status = $1
+         WHERE id = $2
+         RETURNING *`,
+        [status, id]
+    );
+
+    return rows[0] || null;
+};
