@@ -70,3 +70,14 @@ CREATE TABLE IF NOT EXISTS submissions (
     status VARCHAR(30) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+CREATE TABLE IF NOT EXISTS comments (
+    id SERIAL PRIMARY KEY,
+    submission_id INT NOT NULL REFERENCES submissions(id) ON DELETE CASCADE,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    comment TEXT NOT NULL,
+    line_number INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
