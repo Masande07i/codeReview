@@ -21,7 +21,7 @@ export const createComment = async(
         submission_id: number
     ): Promise<Comment[]> => {
         const { rows } = await query(
-            `SELECT * FROM submissions
+            `SELECT * FROM comments
              WHERE submission_id = $1
              ORDER BY created_at DESC`,
             [submission_id]

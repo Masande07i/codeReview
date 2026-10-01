@@ -39,3 +39,22 @@ export const createComment = async (req: Request, res: Response) => {
         });
     }
 };
+
+
+export const getCommentsBySubmission = async (req: Request, res: Response) => {
+    try {
+        const submission_id = parseInt(req.params.id as string, 10);
+
+        const comments = await commentService.getCommentbySubmission(
+            submission_id
+        );
+
+        return res.status(200).json(comments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error retrieving comments"
+        });
+    }
+};
+      
