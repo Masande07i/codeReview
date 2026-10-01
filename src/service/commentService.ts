@@ -1,0 +1,17 @@
+import { query } from "../config/database";
+import { Comment } from "../types/comment.types";
+
+export const createComment = async(
+    submission_id: number,
+     user_id: number,
+     comment: string,
+    line_number: number | null): 
+    Promise<Comment> =>{
+    const {rows} = await query(
+        `INSERT INTO comments (submission_id, user_id, comment, line_number) 
+        VALUES ($1, $2, $3, $4)
+         RETURNING *`,
+         [submission_id, user_id, comment, line_number]
+    );
+    return rows[0];
+    };
