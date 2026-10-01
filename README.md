@@ -81,3 +81,9 @@ CREATE TABLE IF NOT EXISTS comments (
     line_number INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+{
+    "project_id": 2,
+    "title": "User Login",
+    "code": "const login = (email, password) => {\n    return authenticate(email, password);\n};"
+}
