@@ -29,3 +29,21 @@ export const createComment = async(
     
         return rows;
     };
+
+  export const updateComment = async (
+    id: number,
+    comment: string,
+    line_number: number | null
+): Promise<Comment | null> => {
+    const { rows } = await query(
+        `UPDATE comments
+         SET comment = $1,
+             line_number = $2
+         WHERE id = $3
+         RETURNING *`,
+        [comment, line_number, id]
+    );
+
+    return rows[0] || null;
+};
+
