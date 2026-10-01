@@ -55,3 +55,16 @@ export const updateSubmissionStatus = async (
 
     return rows[0] || null;
 };
+
+export const deletesubmissionById = async (
+    id: number
+): Promise<Submission | null> => {
+    const { rows } = await query(
+        `DELETE FROM submissions
+         WHERE id = $1
+         RETURNING *`,
+        [id]
+    );
+
+    return rows[0] || null;
+};

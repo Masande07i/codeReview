@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUserById, updateUserById, deleteUserById} from "../controllers/userController"
+import { getUserById, updateUserById, deleteUserById} from "../controllers/userController";
 import { protect } from "../middleware/authMiddleware";
 
 const router = Router();
