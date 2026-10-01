@@ -89,20 +89,6 @@ CREATE TABLE IF NOT EXISTS comments (
 }
 
 
-router.delete("/comments/:id", deleteComment);
-
-export const deleteComment = async (
-    id: number
-): Promise<Comment | null> => {
-    const { rows } = await query(
-        `DELETE FROM comments
-         WHERE id = $1
-         RETURNING *`,
-        [id]
-    );
-
-    return rows[0] || null;
-};
 
 export const deleteComment = async (req: Request, res: Response) => {
     try {
@@ -128,37 +114,3 @@ export const deleteComment = async (req: Request, res: Response) => {
     }
 };
 
-export const updateComment = async (req: Request, res: Response) => {
-    try {
-        const id = parseInt(req.params.id as string, 10);
-        const { comment, line_number } = req.body;
-
-        if (!comment) {
-            return res.status(400).json({
-                message: "Comment is required"
-            });
-        }
-
-        const updatedComment = await commentService.updateComment(
-            id,
-            comment,
-            line_number ?? null
-        );
-
-        if (!updatedComment) {
-            return res.status(404).json({
-                message: "Comment not found"
-            });
-        }
-
-        return res.status(200).json(updatedComment);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Error updating comment"
-        });
-    }
-};
-
-router.put("/comments/:id", updateComment);
-   

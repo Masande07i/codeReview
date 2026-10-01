@@ -1,4 +1,5 @@
 import { query } from "../config/database";
+import router from "../routes/commentsRoutes";
 import { Comment } from "../types/comment.types";
 
 export const createComment = async(
@@ -47,3 +48,15 @@ export const createComment = async(
     return rows[0] || null;
 };
 
+export const deleteComment = async (
+    id: number
+): Promise<Comment | null> => {
+    const { rows } = await query(
+        `DELETE FROM comments
+         WHERE id = $1
+         RETURNING *`,
+        [id]
+    );
+
+    return rows[0] || null;
+};
