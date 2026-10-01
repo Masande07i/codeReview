@@ -12,7 +12,6 @@ export const addProjectMember = async (
          RETURNING *`,
         [user_id, project_id]
     );
-
     return rows[0] || null;
 };
 

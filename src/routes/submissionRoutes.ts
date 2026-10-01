@@ -1,6 +1,5 @@
 import { Router } from "express";
-import {
-    createSubmission,
+import {createSubmission,
     getSubmissionsByProject,
     getSubmissionById,
     updateSubmissionStatus, deleteSubmissionById

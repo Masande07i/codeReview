@@ -16,7 +16,6 @@ export const createSubmission = async (req: Request, res: Response) => {
                 message: "Not authorized"
             });
         }
-
         const submission = await submissionService.createSubmission(
             project_id,
             req.user.id,
