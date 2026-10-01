@@ -3,7 +3,7 @@ import {
     createSubmission,
     getSubmissionsByProject,
     getSubmissionById,
-    updateSubmissionStatus
+    updateSubmissionStatus, deleteSubmissionById
 } from "../controllers/submissionControllers";
 import { protect } from "../middleware/authMiddleware";
 
@@ -15,6 +15,6 @@ router.post("/submissions", createSubmission);
 router.get("/projects/:id/submissions", getSubmissionsByProject);
 router.get("/submissions/:id", getSubmissionById);
 router.put("/submissions/:id/status", updateSubmissionStatus);
-
+router.delete("/submissions/:id", deleteSubmissionById);
 
 export default router;
