@@ -15,3 +15,17 @@ export const createComment = async(
     );
     return rows[0];
     };
+
+
+    export const getCommentbySubmission = async (
+        submission_id: number
+    ): Promise<Comment[]> => {
+        const { rows } = await query(
+            `SELECT * FROM submissions
+             WHERE submission_id = $1
+             ORDER BY created_at DESC`,
+            [submission_id]
+        );
+    
+        return rows;
+    };
