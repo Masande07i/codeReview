@@ -114,3 +114,27 @@ export const updateSubmissionStatus = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const deleteSubmissionById = async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id as string, 10);
+
+        const submission = await submissionService.deletesubmissionById(id);
+
+        if (!submission) {
+            return res.status(404).json({
+                message: "Submission not found"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Submission deleted successfully",
+            submission
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error deleting project"
+        });
+    }
+};
