@@ -88,29 +88,24 @@ CREATE TABLE IF NOT EXISTS comments (
     "code": "const login = (email, password) => {\n    return authenticate(email, password);\n};"
 }
 
+ALTER TABLE submissions
+ADD CONSTRAINT submissions_status_check
+CHECK (
+    status IN (
+        'pending',
+        'in_review',
+        'approved',
+        'changes_requested'
+    )
+);
 
 
-export const deleteComment = async (req: Request, res: Response) => {
-    try {
-        const id = parseInt(req.params.id as string, 10);
-
-        const deletedComment = await commentService.deleteComment(id);
-
-        if (!deletedComment) {
-            return res.status(404).json({
-                message: "Comment not found"
-            });
-        }
-
-        return res.status(200).json({
-            message: "Comment deleted successfully",
-            comment: deletedComment
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Error deleting comment"
-        });
-    }
-};
-
+CREATE TABLE IF NOT EXISTS reviews (
+    id SERIAL PRIMARY KEY,
+    submission_id INT NOT NULL REFERENCES submissions(id) ON DELETE CASCADE,
+    reviewer_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    status VARCHAR(30) NOT NULL CHECK (
+        status IN ('approved', 'changes_requested')
+    ),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
