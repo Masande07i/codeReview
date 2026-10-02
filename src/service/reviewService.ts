@@ -1,0 +1,25 @@
+import { query } from "../config/database";
+import { Review } from "../types/review.types";
+
+export const approveSubmission = async (
+    submission_id: number,
+    reviewer_id: number
+): Promise<Review> => {
+    const { rows } = await query(
+        `INSERT INTO reviews (submission_id, reviewer_id, status)
+         VALUES ($1, $2, $3)
+         RETURNING *`,
+        [submission_id, reviewer_id, "approved"]
+    );
+
+    await query(
+        `UPDATE submissions
+         SET status = $1
+         WHERE id = $2`,
+        ["approved", submission_id]
+    );
+
+    return rows[0];
+};
+
+
