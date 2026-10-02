@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { approveSubmission, requestChanges } from "../controllers/reviewControllers";
+import { approveSubmission, getReviewHistory, requestChanges } from "../controllers/reviewControllers";
 import { protect } from "../middleware/authMiddleware";
 
 
@@ -9,5 +9,6 @@ router.use(protect);
 
 router.post("submissions/:id/approve", approveSubmission);
 router.post("submissions/:id/request-changes", requestChanges);
+router.get("submissions/:id/reviews", getReviewHistory);
 
 export default router;
