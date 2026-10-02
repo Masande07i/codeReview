@@ -52,3 +52,18 @@ export const requestChanges = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error requesting changes" });
     }
 };
+
+export const getReviewHistory = async (req: Request, res: Response) => {
+    try {
+        const submission_id = parseInt(req.params.id as string, 10);
+
+        const reviews = await reviewService.getReviewHistory(
+            submission_id
+        );
+
+        return res.status(200).json(reviews);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error retrieving review history" });
+    }
+};
