@@ -43,3 +43,15 @@ export const requestChanges = async (
     return rows[0];
 };
 
+export const getReviewHistory = async (
+    submission_id: number
+): Promise<Review[]> => {
+    const { rows } = await query(
+        `SELECT * FROM reviews
+         WHERE submission_id = $1
+         ORDER BY created_at DESC`,
+        [submission_id]
+    );
+
+    return rows;
+};

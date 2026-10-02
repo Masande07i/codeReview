@@ -172,15 +172,48 @@ status = approved
 
 
 
-export const getReviewHistory = async (
-    submission_id: number
-): Promise<Review[]> => {
-    const { rows } = await query(
-        `SELECT * FROM reviews
-         WHERE submission_id = $1
-         ORDER BY created_at DESC`,
-        [submission_id]
-    );
 
-    return rows;
-};
+. Endpoint
+
+In Thunder Client/Postman:
+
+POST http://localhost:3000/api/submissions/1/request-changes
+
+Replace 1 with your submission ID.
+
+2. Header
+
+Use the fresh JWT from your Reviewer login:
+
+Authorization: Bearer YOUR_NEW_TOKEN
+
+No body is needed.
+
+3. Expected response
+
+You should get something like:
+
+{
+    "id": 2,
+    "submission_id": 1,
+    "reviewer_id": 2,
+    "status": "changes_requested",
+    "created_at": "2026-10-02T..."
+}
+4. Check the submission
+
+Run:
+
+SELECT * FROM submissions
+WHERE id = 1;
+
+You should see:
+
+status = changes_requested
+5. Check the review history
+
+Run:
+
+SELECT * FROM reviews
+WHERE submission_id = 1
+ORDER BY created_at DESC;
