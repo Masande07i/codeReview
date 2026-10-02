@@ -34,18 +34,15 @@ export const requestChanges = async (req: Request, res: Response) => {
         if (!req.user) {
             return res.status(401).json({ message: "Not authorized" });
         }
-
         if (req.user.role !== "Reviewer") {
             return res.status(403).json({
                 message: "Only reviewers can request changes"
             });
         }
-
         const review = await reviewService.requestChanges(
             submission_id,
             req.user.id
         );
-
         return res.status(200).json(review);
     } catch (error) {
         console.log(error);
