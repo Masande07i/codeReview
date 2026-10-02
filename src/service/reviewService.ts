@@ -22,4 +22,24 @@ export const approveSubmission = async (
     return rows[0];
 };
 
+export const requestChanges = async (
+    submission_id: number,
+    reviewer_id: number
+): Promise<Review> => {
+    const { rows } = await query(
+        `INSERT INTO reviews (submission_id, reviewer_id, status)
+         VALUES ($1, $2, $3)
+         RETURNING *`,
+        [submission_id, reviewer_id, "changes_requested"]
+    );
+
+    await query(
+        `UPDATE submissions
+         SET status = $1
+         WHERE id = $2`,
+        ["changes_requested", submission_id]
+    );
+
+    return rows[0];
+};
 

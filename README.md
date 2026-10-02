@@ -109,3 +109,78 @@ CREATE TABLE IF NOT EXISTS reviews (
     ),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+Database connection successful
+Server is running on http://localhost:3000
+2. Log in as a Reviewer
+
+Use:
+
+POST http://localhost:3000/api/auth/login
+
+Use the credentials of a user whose role is:
+
+Reviewer
+
+Copy the new JWT token from the response.
+
+3. Test approve
+
+In Thunder Client/Postman:
+
+POST http://localhost:3000/api/submissions/1/approve
+
+Replace 1 with an existing submission ID.
+
+Go to Headers:
+
+Authorization: Bearer YOUR_NEW_TOKEN
+
+You don't need a body.
+
+4. Expected response
+
+If everything works, you should get something similar to:
+
+{
+    "id": 1,
+    "submission_id": 1,
+    "reviewer_id": 2,
+    "status": "approved",
+    "created_at": "2026-10-02T..."
+}
+5. Check the submission
+
+Run:
+
+SELECT * FROM submissions
+WHERE id = 1;
+
+The submission should now have:
+
+status = approved
+
+And check the review history:
+
+SELECT * FROM reviews
+WHERE submission_id = 1;
+
+You should see the new review with:
+
+status = approved
+
+
+
+export const getReviewHistory = async (
+    submission_id: number
+): Promise<Review[]> => {
+    const { rows } = await query(
+        `SELECT * FROM reviews
+         WHERE submission_id = $1
+         ORDER BY created_at DESC`,
+        [submission_id]
+    );
+
+    return rows;
+};
