@@ -1,3 +1,225 @@
+# Code Collaborative Review
+
+## Project image
+
+<img src="https://socialify.git.ci/Masande07i/codeReview/image?language=1&owner=1&name=1&stargazers=1&theme=Light" alt="codeReview" width="640" height="320" />
+
+## Project Description
+
+```The Collaborative Code Review Platform is an API-driven application that allows developers and teams to submit code, request reviews, provide feedback, and manage the review process.Users can register and log in securely using JWT authentication. The platform supports different user roles, including Submitters and Reviewers. Users can create projects, add members to projects, submit code for review, add comments, and manage the review status of their submissions.Reviewers can review submitted code, add comments, approve submissions, or request changes. The platform also keeps a history of reviews and provides notifications and project statistics.The project was built to demonstrate the use of Node.js, Express, TypeScript, PostgreSQL, JWT authentication, role-based authorization, REST APIs, and WebSockets to create a secure API-driven code review platform.```
+
+## Installation and Set-up
+
+Clone the repository:
+
+git clone https://github.com/Masande07i/codeReview.git
+
+cd codeReview
+
+Create a .env file in the root of the project and add your PostgreSQL and JWT configuration:
+
+PORT=3000
+DB_HOST=your_database_host
+DB_PORT=5432
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_database_password
+JWT_SECRET=your_jwt_secret
+
+
+## Run App
+
+Install the project dependencies:
+
+npm install
+
+Start the development server:
+
+npm run dev
+
+The API will run on:
+
+http://localhost:3000
+
+
+## Tech Stack
+1. Node.js
+Node.js is used to run the backend application.
+2. Express
+Express is used to create the REST API and handle routes and HTTP requests.
+3. TypeScript
+TypeScript is used to provide type safety and structure to the application.
+4. PostgreSQL
+PostgreSQL is used as the relational database for storing users, projects, submissions, comments, reviews, and notifications.
+5. JWT
+JSON Web Tokens are used for authentication and protecting API endpoints.
+6. bcryptjs
+bcryptjs is used to securely hash user passwords before storing them in the database.
+7. Postman
+Postman is used to test the API endpoints.
+8. WebSockets
+WebSockets are used for real-time communication and notifications.
+
+
+## Main Features
+### User Authentication
+
+Users can:
+
+Register an account
+Log in
+Receive a JWT token
+Access protected endpoints
+Manage their profile
+Update their profile information
+Delete their account
+User Roles
+
+The platform supports two roles:
+
+Submitter
+Reviewer
+
+Submitters can create projects and submit code for review.
+
+Reviewers can review submissions, add comments, approve submissions, and request changes.
+
+Projects
+
+Users can:
+
+Create projects
+View projects
+Add members to projects
+Remove members from projects
+
+Only the project owner can assign or remove project members.
+
+Code Submissions
+
+Users can:
+
+Create code submissions
+View submissions belonging to a project
+View individual submissions
+Update submission status
+Delete submissions
+
+Submission statuses include:
+
+pending
+in_review
+approved
+changes_requested
+Comments
+
+Reviewers can:
+
+Add comments to submissions
+Add line-specific comments
+View comments
+Update comments
+Delete comments
+
+Submitters cannot add review comments.
+
+Reviews
+
+Reviewers can:
+
+Approve submissions
+Request changes
+View review history
+
+The platform stores each review so that previous review decisions can be viewed.
+
+Notifications
+
+The notification system provides users with an activity feed.
+
+Users can retrieve their notifications using:
+
+GET /api/users/:id/notifications
+
+Notifications contain:
+
+Notification ID
+User ID
+Message
+Creation date
+Read status
+Project Statistics
+
+The project statistics feature provides information about project activity, including:
+
+Average review time
+Approval percentage
+Changes-requested percentage
+Reviewer activity
+Submission with the most comments
+WebSockets
+
+WebSockets are used to support real-time communication and notifications.
+
+## API Endpoints
+### Authentication
+
+POST /api/auth/register
+POST /api/auth/login
+### Users
+GET /api/users/:id
+PUT /api/users/:id
+DELETE /api/users/:id
+
+### Projects
+
+POST /api/projects
+GET /api/projects
+POST /api/projects/:id/members
+DELETE /api/projects/:id/members/:userId
+
+### Submissions
+POST /api/submissions
+GET /api/projects/:id/submissions
+GET /api/submissions/:id
+PUT /api/submissions/:id/status
+DELETE /api/submissions/:id
+
+
+### Comments
+
+POST /api/submissions/:id/comments
+GET /api/submissions/:id/comments
+PUT /api/comments/:id
+DELETE /api/comments/:id
+
+### Reviews
+
+POST /api/submissions/:id/approve
+POST /api/submissions/:id/request-changes
+GET /api/submissions/:id/reviews
+
+### Notifications
+GET /api/users/:id/notifications
+
+### Statistics
+GET /api/projects/:id/stats
+Database
+
+The project uses PostgreSQL.
+
+The main database tables are:
+
+users
+projects
+submissions
+comments
+reviews
+notifications
+
+
+
+
 CREATE TABLE IF NOT EXISTS projects (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
