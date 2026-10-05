@@ -18,13 +18,13 @@ cd codeReview
 
 Create a .env file in the root of the project and add your PostgreSQL and JWT configuration:
 
-PORT=3000
-DB_HOST=your_database_host
-DB_PORT=5432
-DB_NAME=your_database_name
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-JWT_SECRET=your_jwt_secret
+-PORT=3000
+-DB_HOST=your_database_host
+-DB_PORT=5432
+-DB_NAME=your_database_name
+-DB_USER=your_database_user
+-DB_PASSWORD=your_database_password
+-JWT_SECRET=your_jwt_secret
 
 
 ## Run App
@@ -44,21 +44,21 @@ http://localhost:3000
 
 ## Tech Stack
 1. Node.js
-Node.js is used to run the backend application.
+-Node.js is used to run the backend application.
 2. Express
-Express is used to create the REST API and handle routes and HTTP requests.
+-Express is used to create the REST API and handle routes and HTTP requests.
 3. TypeScript
-TypeScript is used to provide type safety and structure to the application.
+-TypeScript is used to provide type safety and structure to the application.
 4. PostgreSQL
-PostgreSQL is used as the relational database for storing users, projects, submissions, comments, reviews, and notifications.
+-PostgreSQL is used as the relational database for storing users, projects, submissions, comments, reviews, and notifications.
 5. JWT
-JSON Web Tokens are used for authentication and protecting API endpoints.
+-JSON Web Tokens are used for authentication and protecting API endpoints.
 6. bcryptjs
 bcryptjs is used to securely hash user passwords before storing them in the database.
 7. Postman
-Postman is used to test the API endpoints.
+-Postman is used to test the API endpoints.
 8. WebSockets
-WebSockets are used for real-time communication and notifications.
+-WebSockets are used for real-time communication and notifications.
 
 
 ## Main Features
@@ -77,7 +77,7 @@ User Roles
 
 ### The platform supports two roles:
 
-Submitter
+Submitter &
 Reviewer
 
 Submitters can create projects and submit code for review.
