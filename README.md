@@ -75,7 +75,7 @@ Update their profile information
 Delete their account
 User Roles
 
-The platform supports two roles:
+### The platform supports two roles:
 
 Submitter
 Reviewer
@@ -84,7 +84,7 @@ Submitters can create projects and submit code for review.
 
 Reviewers can review submissions, add comments, approve submissions, and request changes.
 
-Projects
+### Projects
 
 Users can:
 
@@ -95,7 +95,7 @@ Remove members from projects
 
 Only the project owner can assign or remove project members.
 
-Code Submissions
+### Code Submissions
 
 Users can:
 
@@ -123,7 +123,7 @@ Delete comments
 
 Submitters cannot add review comments.
 
-Reviews
+### Reviews
 
 Reviewers can:
 
@@ -133,7 +133,7 @@ View review history
 
 The platform stores each review so that previous review decisions can be viewed.
 
-Notifications
+### Notifications
 
 The notification system provides users with an activity feed.
 
@@ -150,16 +150,6 @@ Creation date
 Read status
 Project Statistics
 
-The project statistics feature provides information about project activity, including:
-
-Average review time
-Approval percentage
-Changes-requested percentage
-Reviewer activity
-Submission with the most comments
-WebSockets
-
-WebSockets are used to support real-time communication and notifications.
 
 ## API Endpoints
 ### Authentication
@@ -202,9 +192,6 @@ GET /api/submissions/:id/reviews
 ### Notifications
 GET /api/users/:id/notifications
 
-### Statistics
-GET /api/projects/:id/stats
-Database
 
 The project uses PostgreSQL.
 
